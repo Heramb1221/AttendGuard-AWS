@@ -1,0 +1,20 @@
+[Unit]
+Description=AttendGuard Flask application (gunicorn)
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/attendguard
+EnvironmentFile=/home/ubuntu/attendguard/.env
+ExecStart=/home/ubuntu/attendguard/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    --access-logfile /var/log/attendguard/access.log \
+    --error-logfile /var/log/attendguard/error.log \
+    wsgi:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

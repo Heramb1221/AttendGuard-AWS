@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}New Session - {{ course.code }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <h3 class="mb-4">New Attendance Session — {{ course.name }} ({{ course.code }})</h3>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Session Title</label>
+                        <input type="text" name="title" class="form-control"
+                               placeholder="e.g. Lecture 12 - Cloud Deployment Models" required>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Classroom Latitude</label>
+                            <input type="number" step="any" name="latitude" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Classroom Longitude</label>
+                            <input type="number" step="any" name="longitude" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-text mb-3">
+                        Tip: open Google Maps on your phone while standing in the classroom,
+                        long-press your location, and copy the coordinates shown.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Geofence Radius (meters)</label>
+                        <input type="number" name="radius_meters" class="form-control" value="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Session Duration (minutes)</label>
+                        <input type="number" name="duration_minutes" class="form-control" value="10" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Open Attendance Session</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

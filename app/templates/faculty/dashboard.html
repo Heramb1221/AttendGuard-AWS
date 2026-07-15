@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Faculty Dashboard - AttendGuard{% endblock %}
+{% block content %}
+<h2 class="mb-4">My Courses</h2>
+
+{% if courses %}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for course in courses %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ course.code }}</h6>
+                <p class="card-text">{{ course.students|length }} students enrolled</p>
+                <a href="{{ url_for('faculty.create_session', course_id=course.id) }}"
+                   class="btn btn-primary btn-sm">Open New Attendance Session</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    You have no courses yet. Courses are created via <code>flask seed-db</code> during
+    initial setup, or by a database administrator. See instructions.md for details.
+</div>
+{% endif %}
+{% endblock %}

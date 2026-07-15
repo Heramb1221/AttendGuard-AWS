@@ -1,0 +1,30 @@
+/* AttendGuard custom styling on top of Bootstrap 5 */
+
+body {
+    background-color: #f5f7fa;
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+footer {
+    border-top: 1px solid #e0e0e0;
+}
+
+#markBtn {
+    min-width: 220px;
+}
+
+.table-warning {
+    --bs-table-bg: #fff8e1;
+}

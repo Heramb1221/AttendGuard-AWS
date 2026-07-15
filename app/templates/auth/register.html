@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Register - AttendGuard{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4 text-center">Create an Account</h3>
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="name" class="form-control"
+                               value="{{ form_data.get('name', '') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control"
+                               value="{{ form_data.get('email', '') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required minlength="8">
+                        <div class="form-text">Minimum 8 characters.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select name="role" id="roleSelect" class="form-select" required onchange="toggleRollNumber()">
+                            <option value="" disabled selected>Select role</option>
+                            <option value="student">Student</option>
+                            <option value="faculty">Faculty</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="rollNumberField" style="display:none;">
+                        <label class="form-label">Roll Number</label>
+                        <input type="text" name="roll_number" class="form-control"
+                               value="{{ form_data.get('roll_number', '') }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                <p class="text-center mt-3 mb-0">
+                    Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function toggleRollNumber() {
+    const role = document.getElementById('roleSelect').value;
+    document.getElementById('rollNumberField').style.display = (role === 'student') ? 'block' : 'none';
+}
+</script>
+{% endblock %}

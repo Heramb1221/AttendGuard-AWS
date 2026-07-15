@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Mark Attendance - {{ session.title }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h3 class="mb-4">{{ session.title }}</h3>
+        <p class="text-muted">{{ session.course.name }} ({{ session.course.code }})</p>
+
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <p id="statusText">Click below to capture your location and mark attendance.</p>
+                <button id="markBtn" class="btn btn-primary btn-lg">Mark My Attendance</button>
+                <div id="resultBox" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/fingerprint.js') }}"></script>
+<script src="{{ url_for('static', filename='js/geolocation.js') }}"></script>
+<script>
+document.getElementById('markBtn').addEventListener('click', function () {
+    const statusText = document.getElementById('statusText');
+    const resultBox = document.getElementById('resultBox');
+    const button = this;
+
+    button.disabled = true;
+    statusText.textContent = 'Requesting location permission...';
+
+    captureLocationAndSubmit({
+        sessionId: {{ session.id }},
+        onStatus: (msg) => { statusText.textContent = msg; },
+        onSuccess: (data) => {
+            resultBox.innerHTML = `<div class="alert alert-success">
+                Attendance marked! Trust score: ${data.trust_score.toFixed(0)}
+                ${data.status === 'flagged' ? '<br><small>Your submission was flagged for faculty review.</small>' : ''}
+            </div>`;
+        },
+        onError: (message) => {
+            resultBox.innerHTML = `<div class="alert alert-danger">${message}</div>`;
+            button.disabled = false;
+        },
+    });
+});
+</script>
+{% endblock %}

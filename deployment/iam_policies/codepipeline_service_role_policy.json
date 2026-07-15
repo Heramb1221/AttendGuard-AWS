@@ -1,0 +1,47 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowArtifactBucketAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:GetBucketVersioning",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::REPLACE_WITH_YOUR_PIPELINE_ARTIFACT_BUCKET_NAME",
+        "arn:aws:s3:::REPLACE_WITH_YOUR_PIPELINE_ARTIFACT_BUCKET_NAME/*"
+      ]
+    },
+    {
+      "Sid": "AllowCodeBuildInvocation",
+      "Effect": "Allow",
+      "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowCodeDeployInvocation",
+      "Effect": "Allow",
+      "Action": [
+        "codedeploy:CreateDeployment",
+        "codedeploy:GetDeployment",
+        "codedeploy:GetDeploymentConfig",
+        "codedeploy:GetApplicationRevision",
+        "codedeploy:RegisterApplicationRevision"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowCodeStarConnectionUse",
+      "Effect": "Allow",
+      "Action": "codestar-connections:UseConnection",
+      "Resource": "*"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLogging",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:ap-south-1:*:log-group:/aws/codebuild/attendguard-build*"
+    },
+    {
+      "Sid": "AllowArtifactBucketAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::REPLACE_WITH_YOUR_PIPELINE_ARTIFACT_BUCKET_NAME",
+        "arn:aws:s3:::REPLACE_WITH_YOUR_PIPELINE_ARTIFACT_BUCKET_NAME/*"
+      ]
+    }
+  ]
+}

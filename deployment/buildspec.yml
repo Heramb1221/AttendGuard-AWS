@@ -1,0 +1,38 @@
+version: 0.2
+# CodeBuild spec: installs dependencies, runs the automated test suite, and
+# packages the application into a deployable zip that CodeDeploy will pull
+# from the S3 artifact bucket that CodePipeline manages between stages.
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade pip
+      - pip install -r requirements.txt -r requirements-dev.txt
+
+  pre_build:
+    commands:
+      - echo "Running automated test suite..."
+      - export SECRET_KEY=ci-build-secret-key-not-used-in-production
+      - python -m pytest tests/ -v
+
+  build:
+    commands:
+      - echo "Build phase - no compilation needed for Flask, verifying app imports cleanly..."
+      - export SECRET_KEY=ci-build-secret-key-not-used-in-production
+      - python -c "from app import create_app; create_app('production' if False else 'testing')"
+
+  post_build:
+    commands:
+      - echo "Build completed on $(date)"
+
+artifacts:
+  files:
+    - '**/*'
+  exclude-paths:
+    - tests/**/*
+    - .git/**/*
+    - .venv/**/*
+  name: attendguard-build-$(date +%Y%m%d-%H%M%S)
