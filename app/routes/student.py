@@ -1,19 +1,14 @@
-"""
-Student-facing routes: dashboard of enrolled courses/open sessions, and the
-attendance-marking page (the actual geofence + fingerprint submission form
-posts to the API blueprint, not here).
-"""
 from datetime import datetime
-
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 
+from app.extensions import db
+from app.models.course import Course
 from app.models.session import AttendanceSession
 from app.models.attendance import Attendance
 from app.utils.decorators import role_required
 
 student_bp = Blueprint("student", __name__, url_prefix="/student")
-
 
 @student_bp.route("/dashboard")
 @login_required
@@ -52,30 +47,6 @@ def dashboard():
         past_records=past_records,
     )
 
-
-@student_bp.route("/sessions/<int:session_id>/mark")
-@login_required
-@role_required("student")
-def mark_attendance(session_id):
-    session = AttendanceSession.query.get_or_404(session_id)
-
-    if session.course not in current_user.enrolled_courses:
-        flash("You are not enrolled in this course.", "danger")
-        return redirect(url_for("student.dashboard"))
-
-    if not session.is_open():
-        flash("This attendance session is not currently open.", "warning")
-        return redirect(url_for("student.dashboard"))
-
-    existing = Attendance.query.filter_by(
-        session_id=session.id, student_id=current_user.id
-    ).first()
-    if existing:
-        flash("You have already marked attendance for this session.", "info")
-        return redirect(url_for("student.dashboard"))
-
-    return render_template("student/mark_attendance.html", session=session)
-
 @student_bp.route("/enroll", methods=["GET", "POST"])
 @login_required
 @role_required("student")
@@ -95,3 +66,20 @@ def enroll():
             return redirect(url_for("student.dashboard"))
             
     return render_template("student/enroll.html")
+
+@student_bp.route("/sessions/<int:session_id>/mark")
+@login_required
+@role_required("student")
+def mark_attendance(session_id):
+    session = AttendanceSession.query.get_or_404(session_id)
+    if session.course not in current_user.enrolled_courses:
+        flash("You are not enrolled in this course.", "danger")
+        return redirect(url_for("student.dashboard"))
+    if not session.is_open():
+        flash("This attendance session is not currently open.", "warning")
+        return redirect(url_for("student.dashboard"))
+    existing = Attendance.query.filter_by(session_id=session.id, student_id=current_user.id).first()
+    if existing:
+        flash("You have already marked attendance for this session.", "info")
+        return redirect(url_for("student.dashboard"))
+    return render_template("student/mark_attendance.html", session=session)
