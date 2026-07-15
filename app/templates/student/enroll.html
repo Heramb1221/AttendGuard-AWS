@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Enroll in Course - AttendGuard{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="mb-4">Enroll in a New Course</h2>
+        <div class="card shadow-sm p-4">
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Enter Course Code:</label>
+                    <input type="text" name="course_code" class="form-control" required placeholder="e.g. CAP101">
+                </div>
+                <button type="submit" class="btn btn-primary">Enroll Now</button>
+                <a href="{{ url_for('student.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

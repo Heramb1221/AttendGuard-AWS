@@ -75,3 +75,23 @@ def mark_attendance(session_id):
         return redirect(url_for("student.dashboard"))
 
     return render_template("student/mark_attendance.html", session=session)
+
+@student_bp.route("/enroll", methods=["GET", "POST"])
+@login_required
+@role_required("student")
+def enroll():
+    if request.method == "POST":
+        course_code = request.form.get("course_code")
+        course = Course.query.filter_by(code=course_code).first()
+        
+        if not course:
+            flash("Course code not found.", "danger")
+        elif current_user in course.students:
+            flash("You are already enrolled in this course.", "info")
+        else:
+            course.students.append(current_user)
+            db.session.commit()
+            flash(f"Successfully enrolled in {course.name}!", "success")
+            return redirect(url_for("student.dashboard"))
+            
+    return render_template("student/enroll.html")
