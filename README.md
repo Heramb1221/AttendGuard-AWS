@@ -167,16 +167,6 @@ Full step-by-step instructions are in **instructions.md**. Summary:
 5. Create a CodePipeline wiring Source → Build → Deploy together.
 6. Push to `main` — the pipeline builds, tests, and deploys automatically.
 
-## Screenshots
-
-_(Add screenshots here after deployment: login page, faculty dashboard,
-session detail with trust scores, student attendance page.)_
-
-- `screenshots/login.png`
-- `screenshots/faculty-dashboard.png`
-- `screenshots/session-detail.png`
-- `screenshots/mark-attendance.png`
-
 ## API Endpoints
 
 | Method | Endpoint | Description | Auth |
@@ -224,4 +214,9 @@ real-world system, and how to structure a Flask application for production
 ## Contact
 
 **Heramb Chaudhari**
-3rd-year Computer Engineering student, R.C. Patel Institute of Technology, Shirpur
+
+[![GitHub](https://img.shields.io/badge/GitHub-Heramb1221-black?style=for-the-badge&logo=github)](https://github.com/Heramb1221)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Heramb%20Chaudhari-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/heramb-chaudhari)
+
+[![Email](https://img.shields.io/badge/Email-hchaudhari1221%40gmail.com-red?style=for-the-badge&logo=gmail)](mailto:hchaudhari1221@gmail.com)
