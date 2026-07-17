@@ -183,6 +183,22 @@ Full step-by-step instructions are in **instructions.md**. Summary:
 | GET | `/student/sessions/<id>/mark` | Attendance-marking page | Student |
 | POST | `/api/attendance/submit` | Submit GPS + fingerprint for scoring (JSON) | Student |
 
+---
+
+## Application Screenshots
+
+| Feature | Preview |
+|----------|---------|
+| Login Page | <img width="1917" height="862" alt="image" src="https://github.com/user-attachments/assets/ce0bc7ac-31f7-4803-9894-35fe20285797" /> |
+| Faculty Dashboard | <img width="1917" height="862" alt="image" src="https://github.com/user-attachments/assets/c62f8c88-e214-4bdb-bace-951c819b0318" /> |
+| Student Dashboard | <img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/ddd114ae-b507-47a6-9f2c-4fe5a0944948" /> |
+| Create Attendance Session | <img width="1897" height="862" alt="image" src="https://github.com/user-attachments/assets/1322a20c-e7b3-4b4a-9eae-efb59af979b8" /> |
+| Attendance Marking | <img width="1917" height="870" alt="image" src="https://github.com/user-attachments/assets/cb4f263d-29b3-4500-907d-59515207e215" /> |
+| Trust Score Analysis | <img width="1917" height="862" alt="image" src="https://github.com/user-attachments/assets/314049b0-197e-4671-bcec-527a98ffcf84" /> |
+| Flagged Attendance Review | <img width="1917" height="850" alt="image" src="https://github.com/user-attachments/assets/cc793f60-0966-405c-8b86-e5d93eb7a463" /> |
+
+---
+
 ## Challenges Faced
 
 - Balancing false positives vs. false negatives in the anomaly engine —
